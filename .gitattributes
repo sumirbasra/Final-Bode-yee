@@ -1,2 +1,70 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+// ConsoleApplication16.cpp : Defines the entry point for the console application.
+//Sumir Basra, Sanil Hingorani, Winston Yu
+
+#include "stdafx.h"
+#include <iostream>
+using namespace std; 
+
+void showBoard (char board[]); //Prototype 
+
+
+int main()
+{
+	char board[9]; //Holds digits, X or O 
+	int i; //loop variable 
+	int numMoves = 0; // Number of moves
+	char whoseTurn = 'X'; // Current player's move
+	int move;  
+
+	for (i = 0; i < 9; i++) // Initialize board to character digits 1-9
+	{
+		board[i] = '1' + i; 
+	}
+    
+	while (numMoves < 9) //Get a move until all 9 moves used
+	{
+		showBoard(board); 
+		cout << "Enter move: " << endl; 
+		cin >> move; 
+		if ((move < 1) || (move > 9))
+			cout << "Invalid move, try again." << endl;
+		else
+		{
+			move--; // The array is based at 0, not 1
+			if ((board[move] == 'X') || (board[move] == 'O'))
+				cout << "That space is taken. " << endl;
+			else
+			{
+				board[move] = whoseTurn; 
+				// Switch turns 
+				if (whoseTurn == 'X')
+					whoseTurn = 'O';
+				else
+					whoseTurn = 'X'; 
+				numMoves++;
+			} // end of inner else
+		} // end of outter else
+	} //end while
+
+	showBoard(board); //displaying game board 
+	cout << endl << "Game over!" << endl; 
+	// pause system
+	system("pause");
+	return 0; 
+} // end of main
+
+/*This is the function to display board 
+on the screen. It outputs each character 
+in the array, putting a newline every three
+characters*/
+
+void showBoard(char board[])
+{
+	cout << endl; 
+	for (int i = 0; i < 9; i++)
+	{
+		cout << board[i] << " "; 
+		if (((i + 1) % 3) == 0) cout << endl; 
+	}
+	cout << endl; 
+} //end of show board
